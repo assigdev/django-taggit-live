@@ -21,7 +21,7 @@ class TaggitLiveWidget(forms.TextInput):
         js = ('{}taggit_live/js/taggit_live.js'.format(settings.STATIC_URL),)
 
     def render(self, name, value, attrs=None):
-        if value is not None:
+        if value is not None and not isinstance(value, str):
             value = edit_string_for_tags([o.tag for o in value.select_related("tag")])
         rendered = super(TaggitLiveWidget, self).render(name, value, attrs)
         url = reverse("taggit_autocomplete_list")
